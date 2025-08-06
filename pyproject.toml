@@ -1,0 +1,16 @@
+[project]
+name = "schedule-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.116.1",
+    "hypercorn>=0.17.3",
+    "orjson>=3.11.1",
+    "peft>=0.17.0",
+    "ruff>=0.12.7",
+    "tiktoken>=0.9.0",
+    "torch>=2.7.1",
+    "transformers>=4.54.1",
+]
