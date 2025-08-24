@@ -219,3 +219,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+models/Qwen3-4B-bnb-4bit
+models/Qwen3-4B-qlora-thought
+models/Qwen3-4B-qlora-thought-Second
+models/Qwen3-4B-unsloth-bnb-4bit
+models/Qwen3-14B-unsloth-bnb-4bit
+models/Qwen3-32B-unsloth-bnb-4bit
+
+unsloth_compiled_cache
