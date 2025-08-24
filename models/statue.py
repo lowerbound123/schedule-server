@@ -5,3 +5,4 @@ class Statue(BaseModel):
     carriers: dict[str, Carrier]
     shelves: dict[str, Shelf]
     machines: dict[str, Machine]
+    distance: dict[str, int]

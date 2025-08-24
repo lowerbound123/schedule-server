@@ -44,7 +44,7 @@ class RandomGreddy:
         self.shelves = shelves
         self.carriers = carriers
     
-    def __call__(self, machines: dict[str, Machine], shelves: dict[str, Shelf], carriers: dict[str, Carrier]) -> StandardResponse:
+    def __call__(self, machines: dict[str, Machine], shelves: dict[str, Shelf], carriers: dict[str, Carrier]) -> dict[str, str | None]:
         self.machines = machines
         self.shelves = shelves
         self.carriers = carriers
@@ -66,17 +66,17 @@ class RandomGreddy:
             r_carrier, next_machines, next_shelves = choice(first_tier)
             # 如果存在可以立刻过去的机台就立刻送过去, 否则送到一个架子上
             if len(next_machines) > 0:
-                return StandardResponse(
-                    carrier=r_carrier, 
-                    orgi=carriers[r_carrier].at, 
-                    dest=choice(next_machines)
-                )
+                return {
+                    "carrier": r_carrier, 
+                    "orgi": carriers[r_carrier].at, 
+                    "dest": choice(next_machines)
+                }
             else:
-                return StandardResponse(
-                    carrier=r_carrier, 
-                    orgi=carriers[r_carrier].at, 
-                    dest=choice(next_shelves)
-                )
+                return {
+                    "carrier": r_carrier, 
+                    "orgi": carriers[r_carrier].at, 
+                    "dest": choice(next_shelves)
+                }
 
         second_tier = [] # 次优先转运货架上的载具
         for shelf in shelves.values():
@@ -90,24 +90,24 @@ class RandomGreddy:
         if len(second_tier) > 0:
             r_carrier, next_machines = choice(second_tier)
             # 如果货物在货架上，那只能再送到一个机器上
-            return StandardResponse(
-                carrier=r_carrier, 
-                orgi=carriers[r_carrier].at, 
-                dest=choice(next_machines)
-            )
+            return {
+                "carrier": r_carrier, 
+                "orgi": carriers[r_carrier].at, 
+                "dest": choice(next_machines)
+            }
                 
         third_tier = self.get_input_carriers(shelves['Input'])  # 最后转运Input中的载具
         if len(third_tier) > 0:
             r_carrier, next_machines = choice(third_tier)
             # 如果货物在货架(Input)上，那只能再送到一个机器上
-            return StandardResponse(
-                carrier=r_carrier, 
-                orgi=carriers[r_carrier].at, 
-                dest=choice(next_machines)
-            )
+            return {
+                "carrier" :r_carrier, 
+                "orgi" :carriers[r_carrier].at, 
+                "dest" :choice(next_machines)
+            }
         
-        return StandardResponse(
-            carrier="None",
-            orgi="None",
-            dest="None"
-        )
+        return {
+            "carrier": None,
+            "orgi": None,
+            "dest": None
+        }
